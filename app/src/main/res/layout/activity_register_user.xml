@@ -5,10 +5,10 @@
     android:id="@+id/progress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
+    android:background="@drawable/img_1"
     tools:context=".RegisterUser">
 
-    <com.airbnb.lottie.LottieAnimationView
+  <!--  <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/mainAnimation"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,7 +26,7 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/registra"
-        tools:ignore="MissingClass" />
+        tools:ignore="MissingClass" /> -->
     <EditText
         android:id="@+id/user"
         android:layout_width="300dp"
