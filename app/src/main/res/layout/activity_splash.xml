@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/health"
+        app:lottie_rawRes="@raw/splash_json"
         tools:ignore="MissingClass" />
 
     <TextView
@@ -27,8 +27,8 @@
         android:layout_width="127dp"
         android:layout_height="133dp"
         android:layout_marginBottom="40dp"
-        android:fontFamily="@font/poppins"
-        android:text="Wellness Meter"
+        android:fontFamily="casual"
+        android:text="VidCiph"
         android:textColor="@android:color/white"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
