@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
+    android:background="@color/white"
     tools:context=".CentralActivity">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/profile"
         android:layout_width="111dp"
         android:layout_height="111dp"
+        android:layout_marginEnd="60dp"
         android:background="@drawable/roundbutton"
         android:text="PROFILE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toEndOf="@+id/shared"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.608" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/shared"
         android:layout_width="111dp"
         android:layout_height="111dp"
         android:background="@drawable/roundbutton"
@@ -33,7 +35,7 @@
         app:layout_constraintVertical_bias="0.608" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/upload"
         android:layout_width="111dp"
         android:layout_height="111dp"
         android:background="@drawable/roundbutton"
@@ -46,14 +48,16 @@
         app:layout_constraintVertical_bias="0.314" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/list"
         android:layout_width="111dp"
         android:layout_height="111dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/roundbutton"
         android:text="VIDEO LIST"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/upload"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.314" />
 </androidx.constraintlayout.widget.ConstraintLayout>

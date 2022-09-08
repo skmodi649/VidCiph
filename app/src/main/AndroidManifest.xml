@@ -13,6 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VidCiph">
         <activity
+            android:name=".ShareActivity"
+            android:exported="true" />
+        <activity
+            android:name=".videoList"
+            android:exported="true" />
+        <activity
+            android:name=".VideoUpload"
+            android:exported="true" />
+        <activity
+            android:name=".profile"
+            android:exported="true" />
+        <activity
             android:name=".RegisterUser"
             android:exported="true" />
         <activity
