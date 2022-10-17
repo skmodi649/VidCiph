@@ -38,34 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signin.setOnClickListener(this);
 
 
-        Button registration = findViewById(R.id.register);
-        Button login = findViewById(R.id.login);
-
-
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
 
         progressBar = findViewById(R.id.progressBar);  //initialising the progress bar
 
         mAuth = FirebaseAuth.getInstance();
-
-
-        registration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, RegisterUser.class));
-            }
-        });
-
-            login.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, CentralActivity.class));
-                }
-            });
-
-
-
     }
 
     @Override
