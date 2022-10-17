@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1047602902430",
+    "project_id": "vidciph",
+    "storage_bucket": "vidciph.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047602902430:android:ebbac5c7dc4306615d928f",
+        "android_client_info": {
+          "package_name": "com.example.vidciph"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047602902430-v7dam9biqg9sio12cff70l8rbk04fmsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz3nCiGeHEW7kOtQlLaVPxfAXa3skPUDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047602902430-v7dam9biqg9sio12cff70l8rbk04fmsv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
