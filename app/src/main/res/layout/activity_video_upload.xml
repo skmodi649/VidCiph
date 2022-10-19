@@ -8,55 +8,27 @@
     tools:context=".VideoUpload">
 
     <EditText
-        android:id="@+id/video_name2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="284dp"
+        android:layout_width="307dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="312dp"
         android:ems="10"
+        android:gravity="center"
         android:focusable="true"
-        android:hint="Video Link"
+        android:hint="Video Title"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:ems="10"
-        android:focusable="true"
-        android:hint="Video Description"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:ems="10"
-        android:focusable="true"
-        android:hint="Video Name"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/uploadv"
+        android:id="@+id/selectv"
         android:layout_width="162dp"
         android:layout_height="60dp"
         android:layout_marginBottom="264dp"
         android:background="@color/teal_700"
-        android:text="Upload"
+        android:text="Select Video"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

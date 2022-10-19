@@ -97,14 +97,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     assert user != null;
-                    if (user.isEmailVerified()) {
-                        // redirect to user profile
-                        startActivity(new Intent(MainActivity.this,profile.class));
-                    } else {
-                        user.sendEmailVerification();
-                        Toast.makeText(MainActivity.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
+                  //  if (user.isEmailVerified()) {
+                  //      // redirect to user profile
+                        startActivity(new Intent(MainActivity.this,CentralActivity.class));
+               //     } else {
+                //        user.sendEmailVerification();
+                //        Toast.makeText(MainActivity.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
+             //           progressBar.setVisibility(View.GONE);
+                 //   }
                 }
                 else{
                     Toast.makeText(MainActivity.this , "Failed to login! Please check your credentials" , Toast.LENGTH_LONG).show();
