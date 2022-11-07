@@ -1,98 +1,118 @@
 package com.example.vidciph;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+public class Video_Select_EncDec extends AppCompatActivity implements View.OnClickListener {
 
-import java.security.NoSuchAlgorithmException;
+    private Button buttonChoose;
+    private Button buttonUpload;
+    private TextView textView;
+    private TextView textViewResponse;
 
-public class Video_Select_EncDec extends AppCompatActivity {
-    AESEncDec encrypter;
-    TextView path;
+    private static final int SELECT_VIDEO = 3;
+
+    private String selectedPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_select_encdec);
-        path = findViewById(R.id.pathv);
-        path.setText("");
-    }
-    ActivityResultLauncher<Intent> sActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
-                        Intent data = result.getData();
-                        Uri uri = data.getData();
 
-                        String selectedVideoPath = String.valueOf(uri);
-                        if (selectedVideoPath != null) {
-                            path.setText(selectedVideoPath);
-                        }
-                    }
-                }
-            });
+        buttonChoose = (Button) findViewById(R.id.buttonChoose);
+        buttonUpload = (Button) findViewById(R.id.buttonUpload);
 
-    public void openFileDialog(View view){
-        Intent data = new Intent(Intent.ACTION_GET_CONTENT);
-        data.setType("video/*");
-        data = Intent.createChooser(data, "choose a video");
-        sActivityResultLauncher.launch(data);
+        textView = (TextView) findViewById(R.id.textView);
+        textViewResponse = (TextView) findViewById(R.id.textViewResponse);
 
+        buttonChoose.setOnClickListener(this);
+        buttonUpload.setOnClickListener(this);
     }
 
-    public void AESEncDec(View view){
-        if(path.getText().length() == 0){
-            Toast.makeText(Video_Select_EncDec.this,"Please select a video!", Toast.LENGTH_LONG).show();
-        }
-        else{
-            Toast.makeText(Video_Select_EncDec.this, "Video Encrypted! Check Movies Folder!", Toast.LENGTH_LONG).show();
-        }
+    private void chooseVideo() {
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select a Video "), SELECT_VIDEO);
     }
 
-    // performing the AES Encryption Decryption operation
-
-    private void init() throws NoSuchAlgorithmException {
-        encrypter =new AESEncDec();
-    }
-
-
-
-
-
-
-
-
-
-    //this function returns null when using IO file manager
-   /* public static String getPath(Context context, Uri uri) throws URISyntaxException {
-        if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = { "_data" };
-            Cursor cursor = null;
-
-            try {
-                cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow("_data");
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
-                }
-            } catch (Exception e) {
-                // Eat it
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_VIDEO) {
+                System.out.println("SELECT_VIDEO");
+                Uri selectedImageUri = data.getData();
+                selectedPath = getPath(selectedImageUri);
+                textView.setText(selectedPath);
             }
         }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
+    }
 
-        return null;
-    } */
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    private void uploadVideo() {
+        class UploadVideo extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog uploading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                uploading = ProgressDialog.show(Video_Select_EncDec.this, "Uploading File", "Please wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                uploading.dismiss();
+                textViewResponse.setText(Html.fromHtml("<b>Uploaded at <a href='" + s + "'>" + s + "</a></b>"));
+                textViewResponse.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Upload u = new Upload();
+                String msg = u.uploadVideo(selectedPath);
+                return msg;
+            }
+        }
+        UploadVideo uv = new UploadVideo();
+        uv.execute();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (v == buttonChoose) {
+            chooseVideo();
+        }
+        if (v == buttonUpload) {
+            uploadVideo();
+        }
+    }
 }
