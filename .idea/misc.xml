@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/drawable-v24/ic_baseline_add_a_photo_24.xml" value="0.26615384615384613" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/drawable-v24/roundbutton.xml" value="0.2703125" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_central.xml" value="0.264" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
@@ -11,6 +12,8 @@
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_share.xml" value="0.264" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_splash.xml" value="0.264" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_video_list.xml" value="0.264" />
+        <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_video_select.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_video_select_encdec.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/activity_video_upload.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/layout/roundbutton.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/Surmo/AndroidStudioProjects/VidCiph/app/src/main/res/menu/main.xml" value="0.25416666666666665" />

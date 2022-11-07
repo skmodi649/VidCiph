@@ -24,7 +24,7 @@ public class CentralActivity extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CentralActivity.this, VideoUpload.class));
+                startActivity(new Intent(CentralActivity.this, Video_Select_EncDec.class));
             }
         });
         list.setOnClickListener(new View.OnClickListener() {
