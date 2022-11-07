@@ -1,4 +1,6 @@
 package com.example.vidciph;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +13,11 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 public class Video_Select_EncDec extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,24 +45,29 @@ public class Video_Select_EncDec extends AppCompatActivity implements View.OnCli
         buttonUpload.setOnClickListener(this);
     }
 
-    private void chooseVideo() {
-        Intent intent = new Intent();
-        intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select a Video "), SELECT_VIDEO);
-    }
+    ActivityResultLauncher<Intent> sActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        Uri uri = data.getData();
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_VIDEO) {
-                System.out.println("SELECT_VIDEO");
-                Uri selectedImageUri = data.getData();
-                selectedPath = getPath(selectedImageUri);
-                textView.setText(selectedPath);
-            }
-        }
+                        String selectedVideoPath = String.valueOf(uri);
+                        if (selectedVideoPath != null) {
+                            textViewResponse.setText(getPath(uri));
+                        }
+                    }
+                }
+            });
+
+    public void openFileDialog(View view){
+        Intent data = new Intent(Intent.ACTION_GET_CONTENT);
+        data.setType("video/*");
+        data = Intent.createChooser(data, "choose a video");
+        sActivityResultLauncher.launch(data);
+
     }
 
     public String getPath(Uri uri) {
@@ -109,7 +121,7 @@ public class Video_Select_EncDec extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == buttonChoose) {
-            chooseVideo();
+            openFileDialog(v);
         }
         if (v == buttonUpload) {
             uploadVideo();
