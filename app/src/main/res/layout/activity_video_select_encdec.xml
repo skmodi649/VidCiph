@@ -22,15 +22,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload"
-        android:id="@+id/buttonUpload" />
-
-    <TextView
-        android:id="@+id/textViewResponse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

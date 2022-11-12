@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +19,14 @@ import java.security.NoSuchAlgorithmException;
 public class Video_Select_EncDec extends AppCompatActivity {
     AESEncDec encrypter;
     TextView path;
+    Button upload;
+    Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_select_encdec);
         path = findViewById(R.id.pathv);
+        upload = findViewById(R.id.upload);
         path.setText("");
     }
     ActivityResultLauncher<Intent> sActivityResultLauncher = registerForActivityResult(
@@ -32,15 +36,22 @@ public class Video_Select_EncDec extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Intent data = result.getData();
-                        Uri uri = data.getData();
+                        uri = data.getData();
 
                         String selectedVideoPath = String.valueOf(uri);
                         if (selectedVideoPath != null) {
                             path.setText(selectedVideoPath);
                         }
+                        // Initialize intent
+                        Intent intent=new Intent(Video_Select_EncDec.this,UploadVideo.class);
+                        // Put extra
+                        intent.putExtra("uri",uri.toString());
+                        // Start activity
+                        startActivity(intent);
                     }
                 }
             });
+
 
     public void openFileDialog(View view){
         Intent data = new Intent(Intent.ACTION_GET_CONTENT);
@@ -57,6 +68,20 @@ public class Video_Select_EncDec extends AppCompatActivity {
         else{
             Toast.makeText(Video_Select_EncDec.this, "Video Encrypted! Check Movies Folder!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void Upload(View view){
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Initialize intent
+                Intent intent=new Intent(Video_Select_EncDec.this,UploadVideo.class);
+                // Put extra
+                intent.putExtra("uri",uri.toString());
+                // Start activity
+                startActivity(intent);
+            }
+        });
     }
 
     // performing the AES Encryption Decryption operation

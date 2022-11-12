@@ -3,54 +3,62 @@ package com.example.vidciph;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
-public class AESEncDec {
-    private final static int DEFAULT_READ_WRITE_BLOCK_BUFFER_SIZE = 1024;
+public class AESEncDec{
+    private final static int READ_WRITE_BLOCK_BUFFER = 1024;
     private final static String ALGO_VIDEO_ENCRYPTOR = "AES/CBC/PKCS5Padding";
+    private final static String ALGO_SECRET_KEY = "AES";
 
-    @SuppressWarnings("resource")
-    public static void encrypt(SecretKey key,
-                               AlgorithmParameterSpec paramSpec, InputStream in, OutputStream out)
-            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-            InvalidAlgorithmParameterException, IOException {
-        try {
+    public static void encryptToFile(String keyStr, String specStr, InputStream in, OutputStream out)throws
+            NoSuchPaddingException, NoSuchAlgorithmException,
+            InvalidAlgorithmParameterException, InvalidKeyException, IOException {
+        try{
+            IvParameterSpec iv = new IvParameterSpec(specStr.getBytes("UTF-8"));
+            SecretKeySpec keySpec = new SecretKeySpec(keyStr.getBytes("UTF-8"), ALGO_SECRET_KEY);
+
             Cipher c = Cipher.getInstance(ALGO_VIDEO_ENCRYPTOR);
-            c.init(Cipher.ENCRYPT_MODE, key, paramSpec);
+            c.init(Cipher.ENCRYPT_MODE,keySpec,iv);
             out = new CipherOutputStream(out, c);
             int count = 0;
-            byte[] buffer = new byte[DEFAULT_READ_WRITE_BLOCK_BUFFER_SIZE];
-            while ((count = in.read(buffer)) >= 0) {
+            byte[] buffer = new byte[READ_WRITE_BLOCK_BUFFER];
+            while((count = in.read(buffer)) > 0){
                 out.write(buffer, 0, count);
             }
-        } finally {
+        }
+        finally {
             out.close();
         }
     }
-    @SuppressWarnings("resource")
-    public static void decrypt(SecretKey key, AlgorithmParameterSpec paramSpec,
-                               InputStream in, OutputStream out)
-            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-            InvalidAlgorithmParameterException, IOException {
-        try {
+
+    public static void DecryptToFile(String keyStr, String specStr, InputStream in, OutputStream out)throws
+            NoSuchPaddingException, NoSuchAlgorithmException,
+            InvalidAlgorithmParameterException, InvalidKeyException, IOException {
+        try{
+            IvParameterSpec iv = new IvParameterSpec(specStr.getBytes("UTF-8"));
+            SecretKeySpec keySpec = new SecretKeySpec(keyStr.getBytes("UTF-8"), ALGO_SECRET_KEY);
+
             Cipher c = Cipher.getInstance(ALGO_VIDEO_ENCRYPTOR);
-            c.init(Cipher.DECRYPT_MODE, key, paramSpec);
+            c.init(Cipher.DECRYPT_MODE,keySpec,iv);
             out = new CipherOutputStream(out, c);
             int count = 0;
-            byte[] buffer = new byte[DEFAULT_READ_WRITE_BLOCK_BUFFER_SIZE];
-            while ((count = in.read(buffer)) >= 0) {
+            byte[] buffer = new byte[READ_WRITE_BLOCK_BUFFER];
+            while((count = in.read(buffer)) > 0){
                 out.write(buffer, 0, count);
             }
-        } finally {
+        }
+        finally {
             out.close();
         }
     }
+
 }
